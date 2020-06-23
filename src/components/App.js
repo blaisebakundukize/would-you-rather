@@ -9,15 +9,16 @@ class App extends Component {
     this.props.dispatch(handleInitialData());
   }
   render() {
-    return <div>{this.props.loading === true
-      ? null
-      : <Dashboard />}
-    </div>;
+    return (
+      <div className='container'>
+        {this.props.loading === true ? null : <Dashboard />}
+      </div>
+    );
   }
 }
 
 const mapStateToProps = ({ authedUser }) => ({
-  loading: authedUser === null
+  loading: authedUser === null,
 });
 
 export default connect(mapStateToProps)(App);
