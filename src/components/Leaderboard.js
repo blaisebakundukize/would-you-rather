@@ -7,15 +7,13 @@ class Leaderboard extends Component {
   render() {
     const { userIds } = this.props;
     return (
-      <div className='container'>
-        <ul className='leaderboard-list'>
-          {userIds.map((id) => (
-            <li key={id}>
-              <LeaderboardItem id={id} />
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className='leaderboard-list'>
+        {userIds.map((id) => (
+          <li key={id}>
+            <LeaderboardItem id={id} />
+          </li>
+        ))}
+      </ul>
     );
   }
 }

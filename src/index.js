@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 
 import "./index.css";
 import App from "./components/App";
@@ -10,11 +11,14 @@ import middleware from "./middleware";
 
 const store = createStore(reducer, middleware);
 
-ReactDOM.render(
+const app = (
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>
-  </Provider>,
-  document.getElementById("root")
+  </Provider>
 );
+
+ReactDOM.render(app, document.getElementById("root"));

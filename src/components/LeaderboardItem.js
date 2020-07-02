@@ -9,7 +9,11 @@ class LeaderboardItem extends Component {
     return (
       <div className='leaderboard'>
         <div className='leaderboard-avatar'>
-          <Avatar name={name} avatarURL={avatarURL} />
+          <Avatar
+            name={name}
+            avatarURL={avatarURL}
+            classes='leaderboard-user-avatar'
+          />
         </div>
         <div className='leaderboard-actions'>
           <h3 className='leaderboard-user question-title-author'>{name}</h3>
@@ -18,6 +22,7 @@ class LeaderboardItem extends Component {
               <span>Answered Questions</span>
               <span>{answers}</span>
             </p>
+            <div className='line-horizontal' />
             <p className='leaderboard-result'>
               <span>Created Questions</span>
               <span>{questions}</span>
@@ -28,8 +33,12 @@ class LeaderboardItem extends Component {
           </div> */}
         </div>
         <div className='leaderboard-score'>
-          <div className='leaderboard-score-label'>Score</div>
-          <div className='leaderboard-score-total'>{questions + answers}</div>
+          <div className='leaderboard-score-label'>
+            <p className='score-label center'>Score</p>
+          </div>
+          <div className='leaderboard-score-total'>
+            <span className='score-total'>{questions + answers}</span>
+          </div>
         </div>
       </div>
     );

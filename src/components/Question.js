@@ -26,7 +26,7 @@ class Question extends Component {
       <div className='question'>
         <div className='question-header'>
           <h3 className='question-title'>
-            {title !== null ? (
+            {title !== "" ? (
               <span>
                 {title} {authorNameAsTitle}
               </span>
@@ -37,15 +37,18 @@ class Question extends Component {
         </div>
         <div className='question-content'>
           <div className='question-author'>
-            <Avatar name={name} avatarURL={avatarURL} />
+            <Avatar
+              name={name}
+              avatarURL={avatarURL}
+              classes='question-user-avatar'
+            />
           </div>
           {children ? (
             children
           ) : (
             <div className='question-info'>
               <h3>Would you rather</h3>
-              <p>{optionOne}</p>
-              <p>{optionTwo}</p>
+              <p>{optionOne}...</p>
               <Link to={`/question/${id}`}>View Poll</Link>
             </div>
           )}

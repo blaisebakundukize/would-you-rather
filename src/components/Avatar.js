@@ -1,6 +1,6 @@
 import React from "react";
 
-const Avatar = ({ name, avatarURL }) => {
+const Avatar = ({ name, avatarURL, classes }) => {
   let AvatarFromName = "";
   if (avatarURL === "" && name.length > 0) {
     name = name.trim().split(" ");
@@ -9,14 +9,15 @@ const Avatar = ({ name, avatarURL }) => {
     });
   }
   return (
-    <div className='avatar-name'>
-      {/* {AvatarFromName === "" ? (
-        <AvatarMUI alt={name} src={avatarURL} />
+    <>
+      {avatarURL !== "" ? (
+        <img className={`${classes} avatar`} alt={name} src={avatarURL} />
       ) : (
-        <AvatarMUI>{AvatarFromName}</AvatarMUI>
-      )} */}
-      <h3 className='text-avatar'>{AvatarFromName}</h3>
-    </div>
+        <div className={`avatar-name ${classes}`}>
+          <h3 className='text-avatar'>{AvatarFromName}</h3>
+        </div>
+      )}
+    </>
   );
 };
 

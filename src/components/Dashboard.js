@@ -6,20 +6,27 @@ import Question from "./Question";
 
 class Dashboard extends Component {
   render() {
-    const activeTabColor = "#46e056";
+    const activeTabColor = "#3cb371";
     const greyColor = "#f8f8f8";
     const contentStyle = {
       background: "white",
-      height: "auto",
-      maxHeight: "54rem",
+      height: "47.55rem",
+      paddingBottom: "1rem",
+      boxSizing: "border-box",
       overflow: "auto",
     };
     const tabContainerStyle = {
       width: "55rem",
-      height: "58rem",
+      height: "52rem",
       margin: "0 auto",
       background: "white",
-      border: "1px solid #dad7d7",
+      border: "2px solid #dad7d7",
+      boxSizing: "border-box",
+    };
+
+    const activeTabBorderBottomStyle = {
+      background: activeTabColor,
+      height: 2,
     };
     const { questionIds, answers } = this.props;
 
@@ -39,17 +46,19 @@ class Dashboard extends Component {
       <CoolTabs
         tabKey={"1"}
         style={tabContainerStyle}
-        activeTabStyle={{ background: greyColor, color: activeTabColor }}
-        unActiveTabStyle={{ background: "white", color: "black" }}
-        // activeLeftTabBorderBottomStyle={{
-        //   background: "#dad7d7",
-        //   height: 1,
-        // }}
-        // activeRightTabBorderBottomStyle={{
-        //   background: "#dad7d7",
-        //   height: 1,
-        // }}
-        tabsBorderBottomStyle={{ background: "#dad7d7", height: 1 }}
+        activeTabStyle={{
+          background: greyColor,
+          color: activeTabColor,
+          fontSize: "1.4rem",
+        }}
+        unActiveTabStyle={{
+          background: "white",
+          color: "black",
+          fontSize: "1.4rem",
+        }}
+        activeLeftTabBorderBottomStyle={activeTabBorderBottomStyle}
+        activeRightTabBorderBottomStyle={activeTabBorderBottomStyle}
+        tabsBorderBottomStyle={{ background: "#dad7d7", height: 2 }}
         leftContentStyle={contentStyle}
         rightContentStyle={contentStyle}
         leftTabTitle={"Unanswered Questions"}
@@ -58,7 +67,7 @@ class Dashboard extends Component {
           <ul>
             {unansweredQuestions.map((id) => (
               <li key={id}>
-                <Question id={id} />
+                <Question id={id} title='' />
               </li>
             ))}
           </ul>
@@ -67,7 +76,7 @@ class Dashboard extends Component {
           <ul>
             {answeredQuestions.map((id) => (
               <li key={id}>
-                <Question id={id} />
+                <Question id={id} title='' />
               </li>
             ))}
           </ul>
@@ -81,7 +90,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = ({ questions, users, authedUser }) => ({
   questionIds: Object.keys(questions).sort(
-    (a, b) => questions[a].timestamp - questions[b].timestamp
+    (a, b) => questions[b].timestamp - questions[a].timestamp
   ),
   answers: users[authedUser].answers,
 });
