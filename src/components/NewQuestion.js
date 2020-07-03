@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+
+import { handleAddQuestion } from "../actions/questions";
 
 class NewQuestion extends Component {
   state = {
@@ -16,6 +20,7 @@ class NewQuestion extends Component {
       required: true,
       minLength: 5,
     },
+    toHome: false,
   };
 
   checkValidity = (value, rules) => {
@@ -46,10 +51,22 @@ class NewQuestion extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+
+    const question = {
+      optionOneText: this.state.inputs.optionOne.value,
+      optionTwoText: this.state.inputs.optionTwo.value,
+    };
+    const { dispatch } = this.props;
+    dispatch(handleAddQuestion(question));
+    this.setState({ toHome: true });
   };
 
   render() {
     const { optionOne, optionTwo } = this.state.inputs;
+    const { toHome } = this.state;
+    if (toHome === true) {
+      return <Redirect to='/' />;
+    }
     return (
       <div className='question question-new'>
         <div className='question-header'>
@@ -93,4 +110,4 @@ class NewQuestion extends Component {
   }
 }
 
-export default NewQuestion;
+export default connect()(NewQuestion);
