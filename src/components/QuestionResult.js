@@ -9,7 +9,7 @@ const QuestionResult = ({ options, answer }) => {
     totalVotes += options[key].votes.length;
   });
   return (
-    <div className='question-result'>
+    <>
       <h3>Results:</h3>
       {optionKeys.map((key) => (
         <Badge key={key} badgeContent={answer === key ? "your vote" : null}>
@@ -31,7 +31,7 @@ const QuestionResult = ({ options, answer }) => {
           </div>
         </Badge>
       ))}
-    </div>
+    </>
   );
 };
 

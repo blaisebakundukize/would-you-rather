@@ -16,7 +16,7 @@ class Dashboard extends Component {
       overflow: "auto",
     };
     const tabContainerStyle = {
-      width: "55rem",
+      width: "50rem",
       height: "52rem",
       margin: "0 auto",
       background: "white",
@@ -50,11 +50,13 @@ class Dashboard extends Component {
           background: greyColor,
           color: activeTabColor,
           fontSize: "1.4rem",
+          cursor: "pointer",
         }}
         unActiveTabStyle={{
           background: "white",
-          color: "black",
+          color: "#252525",
           fontSize: "1.4rem",
+          cursor: "pointer",
         }}
         activeLeftTabBorderBottomStyle={activeTabBorderBottomStyle}
         activeRightTabBorderBottomStyle={activeTabBorderBottomStyle}
@@ -64,7 +66,7 @@ class Dashboard extends Component {
         leftTabTitle={"Unanswered Questions"}
         rightTabTitle={"Answered Questions"}
         leftContent={
-          <ul>
+          <ul className='dashboard-list'>
             {unansweredQuestions.map((id) => (
               <li key={id}>
                 <Question id={id} title='' />
@@ -73,7 +75,7 @@ class Dashboard extends Component {
           </ul>
         }
         rightContent={
-          <ul>
+          <ul className='dashboard-list'>
             {answeredQuestions.map((id) => (
               <li key={id}>
                 <Question id={id} title='' />

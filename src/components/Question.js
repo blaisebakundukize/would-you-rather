@@ -36,22 +36,24 @@ class Question extends Component {
           </h3>
         </div>
         <div className='question-content'>
-          <div className='question-author'>
-            <Avatar
-              name={name}
-              avatarURL={avatarURL}
-              classes='question-user-avatar'
-            />
+          <Avatar
+            name={name}
+            avatarURL={avatarURL}
+            classes='question-user-avatar'
+          />
+          <div className='question-info'>
+            {children ? (
+              children
+            ) : (
+              <>
+                <h3>Would you rather</h3>
+                <p>{optionOne}...</p>
+                <Link to={`/question/${id}`}>
+                  <button className='btn btn-view-poll'>View Poll</button>
+                </Link>
+              </>
+            )}
           </div>
-          {children ? (
-            children
-          ) : (
-            <div className='question-info'>
-              <h3>Would you rather</h3>
-              <p>{optionOne}...</p>
-              <Link to={`/question/${id}`}>View Poll</Link>
-            </div>
-          )}
         </div>
       </div>
     );

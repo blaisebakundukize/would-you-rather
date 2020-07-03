@@ -21,26 +21,30 @@ class PeekOption extends Component {
     const optionKeys = Object.keys(options);
 
     return (
-      <div>
+      <>
+        <h3 className='question-title'>Would you rather...</h3>
         <form onSubmit={this.onSubmit}>
-          {optionKeys.map((key) => (
-            <label key={options[key]}>
-              <input
-                type='radio'
-                value={key}
-                checked={this.state.selectedOption === key}
-                onChange={this.handleOptionChange}
-              />
-              <span>{options[key]}</span>
-            </label>
-          ))}
+          <div className='form-radio-group'>
+            {optionKeys.map((key) => (
+              <label key={options[key]}>
+                <input
+                  type='radio'
+                  value={key}
+                  checked={this.state.selectedOption === key}
+                  onChange={this.handleOptionChange}
+                />
+                <span>{options[key]}</span>
+              </label>
+            ))}
+          </div>
           <input
+            className='btn btn-green btn-submit'
             type='submit'
             value='Submit'
             disabled={this.state.selectedOption === null}
           />
         </form>
-      </div>
+      </>
     );
   }
 }
