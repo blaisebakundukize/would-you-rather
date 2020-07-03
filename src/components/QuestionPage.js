@@ -5,23 +5,25 @@ import Question from "./Question";
 import { formatQuestion } from "../utils/helpers";
 import PeekOption from "./PeekOption";
 import QuestionResult from "./QuestionResult";
+import { handleAddQuestionVote } from "../actions/questions";
 
 class QuestionPage extends Component {
-  onSubmitOption = (option) => {
-    console.log(option);
+  onSubmitOption = (answer) => {
+    const { dispatch, question } = this.props;
+    dispatch(handleAddQuestionVote(question.id, answer));
   };
   render() {
     const question = this.props.question;
     if (question === null) {
       return <p className='center'>Question not found</p>;
     }
-    const { id, optionOne, optionTwo, answer, name } = question;
+    const { id, optionOne, optionTwo, answer } = question;
     const options = { optionOne: optionOne.text, optionTwo: optionTwo.text };
 
     const titleQuestion = answer !== null ? "Asked by " : null;
 
     return (
-      <div className='main-content'>
+      <div className='question-page'>
         <Question id={id} title={titleQuestion}>
           {answer === null ? (
             <PeekOption
