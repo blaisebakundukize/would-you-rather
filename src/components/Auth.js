@@ -2,14 +2,23 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import logo from "../assets/images/logo.png";
+import { handleReceiveUsers } from "../actions/users";
+import { login } from "../actions/authedUser";
 
 class Auth extends Component {
   state = {
     userId: "",
   };
 
+  componentDidMount() {
+    this.props.dispatch(handleReceiveUsers());
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
+    const { userId } = this.state;
+    this.props.dispatch(login(userId));
+    this.props.history.replace("/");
   };
 
   handleChange = (event) => {
@@ -18,6 +27,42 @@ class Auth extends Component {
 
   render() {
     const { users } = this.props;
+    const { userId } = this.state;
+    let loginForm = "loading form...";
+    if (users !== null) {
+      const options = [];
+      users.forEach((user) => {
+        options.push(
+          <option key={user.id} value={user.id}>
+            {user.name}
+          </option>
+        );
+      });
+      loginForm = (
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            <select
+              className='form-input select-placeholder'
+              onChange={this.handleChange}
+              value={userId}
+              required
+            >
+              <option key={0} value='' disabled>
+                Select User
+              </option>
+              {options}
+            </select>
+          </label>
+          <input
+            className='btn btn-green btn-submit'
+            disabled={userId === ""}
+            type='submit'
+            value='Submit'
+          />
+        </form>
+      );
+    }
+
     return (
       <div className='question auth'>
         <div className='auth-header'>
@@ -30,22 +75,7 @@ class Auth extends Component {
           <img alt='Would you rather logo' src={logo} />
         </div>
         <h3 className='auth-form-title center'>Sign in</h3>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            <select className='form-input' onChange={this.handleChange}>
-              {users.map((user) => (
-                <option className='pink' key={user.id} value={user.id}>
-                  {user.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <input
-            className='btn btn-green btn-submit'
-            type='submit'
-            value='Submit'
-          />
-        </form>
+        {loginForm}
       </div>
     );
   }
@@ -54,11 +84,13 @@ class Auth extends Component {
 const mapStateToProps = ({ users }) => {
   const userIds = Object.keys(users);
   return {
-    users: userIds.map((id) => ({
-      id: users[id].id,
-      name: users[id].name,
-      avatarURL: users[id].avatarURL,
-    })),
+    users: userIds
+      ? userIds.map((id) => ({
+          id: users[id].id,
+          name: users[id].name,
+          avatarURL: users[id].avatarURL,
+        }))
+      : null,
   };
 };
 
