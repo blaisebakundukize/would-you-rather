@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import handleInitialData from "../actions/shared";
 import Dashboard from "./Dashboard";
@@ -10,6 +10,7 @@ import NewQuestion from "./NewQuestion";
 import Auth from "./Auth";
 import Layout from "./Layout";
 import ProtectedRoute from "./ProtectedRoute";
+import NotFound from "./NotFound";
 
 class App extends Component {
   componentDidMount() {
@@ -19,7 +20,6 @@ class App extends Component {
     const { isAuthed } = this.props;
     return (
       <>
-        {/* {this.props.isAuthenticated === true ? null : ( */}
         <Layout>
           <Switch>
             <>
@@ -45,10 +45,11 @@ class App extends Component {
                 exact
                 component={Dashboard}
               />
+              <Route path='/404' component={NotFound} />
+              <Redirect to='/404' />
             </>
           </Switch>
         </Layout>
-        {/* )} */}
       </>
     );
   }
