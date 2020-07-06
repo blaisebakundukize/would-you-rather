@@ -9,34 +9,53 @@ import Leaderboard from "./Leaderboard";
 import NewQuestion from "./NewQuestion";
 import Auth from "./Auth";
 import Layout from "./Layout";
+import ProtectedRoute from "./ProtectedRoute";
 
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData());
   }
   render() {
+    const { isAuthed } = this.props;
     return (
       <>
-        {this.props.loading === true ? null : (
-          <Layout>
-            <Switch>
-              <>
-                <Route path='/auth' component={Auth} />
-                <Route path='/leaderboard' component={Leaderboard} />
-                <Route path='/question/:id' component={QuestionPage} />
-                <Route path='/add' component={NewQuestion} />
-                <Route path='/' exact component={Dashboard} />
-              </>
-            </Switch>
-          </Layout>
-        )}
+        {/* {this.props.isAuthenticated === true ? null : ( */}
+        <Layout>
+          <Switch>
+            <>
+              <Route path='/auth' component={Auth} />
+              <ProtectedRoute
+                isAuthed={isAuthed}
+                path='/leaderboard'
+                component={Leaderboard}
+              />
+              <ProtectedRoute
+                isAuthed={isAuthed}
+                path='/question/:id'
+                component={QuestionPage}
+              />
+              <ProtectedRoute
+                isAuthed={isAuthed}
+                path='/add'
+                component={NewQuestion}
+              />
+              <ProtectedRoute
+                isAuthed={isAuthed}
+                path='/'
+                exact
+                component={Dashboard}
+              />
+            </>
+          </Switch>
+        </Layout>
+        {/* )} */}
       </>
     );
   }
 }
 
 const mapStateToProps = ({ authedUser }) => ({
-  loading: authedUser === null,
+  isAuthed: authedUser !== null,
 });
 
 export default connect(mapStateToProps)(App);
