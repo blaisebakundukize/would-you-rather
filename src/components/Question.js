@@ -7,15 +7,7 @@ import Avatar from "./Avatar";
 
 class Question extends Component {
   render() {
-    const {
-      id,
-      timestamp,
-      optionOne,
-      optionTwo,
-      name,
-      avatarURL,
-      answer,
-    } = this.props.question;
+    const { id, optionOne, name, avatarURL } = this.props.question;
     const { children, title } = this.props;
 
     const authorNameAsTitle = (
