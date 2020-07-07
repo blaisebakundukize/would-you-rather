@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import Nav from "./Nav";
 import Avatar from "./Avatar";
@@ -8,20 +8,11 @@ import logo from "../assets/images/logo.png";
 import { logout } from "../actions/authedUser";
 
 class Layout extends Component {
-  state = {
-    isLoggedOut: false,
-  };
-  handleLogout = (event) => {
-    event.preventDefault();
-    const { dispatch } = this.props;
-    dispatch(logout());
-    this.setState({ isLoggedOut: true });
+  handleLogout = () => {
+    this.props.dispatch(logout());
   };
   render() {
     const { authedUser } = this.props;
-    if (this.state.isLoggedOut && authedUser === false) {
-      return <Redirect to='/auth' />;
-    }
     return (
       <>
         <header className='header'>

@@ -17,8 +17,12 @@ class Auth extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const { userId } = this.state;
-    this.props.dispatch(login(userId));
-    this.props.history.replace("/");
+    const { dispatch, location, history } = this.props;
+    dispatch(login(userId));
+    let redirectTo = "/";
+    if (location.state !== undefined && location.state !== null)
+      redirectTo = location.state.redirectTo;
+    history.replace(redirectTo);
   };
 
   handleChange = (event) => {
@@ -28,6 +32,7 @@ class Auth extends Component {
   render() {
     const { users } = this.props;
     const { userId } = this.state;
+
     let loginForm = "loading form...";
     if (users !== null) {
       const options = [];
@@ -81,7 +86,7 @@ class Auth extends Component {
   }
 }
 
-const mapStateToProps = ({ users }) => {
+const mapStateToProps = ({ users, authedUser }) => {
   const userIds = Object.keys(users);
   return {
     users: userIds
@@ -91,6 +96,7 @@ const mapStateToProps = ({ users }) => {
           avatarURL: users[id].avatarURL,
         }))
       : null,
+    authedUser,
   };
 };
 

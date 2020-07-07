@@ -22,32 +22,30 @@ class App extends Component {
       <>
         <Layout>
           <Switch>
-            <>
-              <Route path='/auth' component={Auth} />
-              <ProtectedRoute
-                isAuthed={isAuthed}
-                path='/leaderboard'
-                component={Leaderboard}
-              />
-              <ProtectedRoute
-                isAuthed={isAuthed}
-                path='/question/:id'
-                component={QuestionPage}
-              />
-              <ProtectedRoute
-                isAuthed={isAuthed}
-                path='/add'
-                component={NewQuestion}
-              />
-              <ProtectedRoute
-                isAuthed={isAuthed}
-                path='/'
-                exact
-                component={Dashboard}
-              />
-              <Route path='/404' component={NotFound} />
-              <Redirect to='/404' />
-            </>
+            <Route path='/auth' component={Auth} />
+            <ProtectedRoute
+              isAuthed={isAuthed}
+              path='/leaderboard'
+              component={Leaderboard}
+            />
+            <ProtectedRoute
+              isAuthed={isAuthed}
+              path='/question/:id'
+              component={QuestionPage}
+            />
+            <ProtectedRoute
+              isAuthed={isAuthed}
+              path='/add'
+              component={NewQuestion}
+            />
+            <ProtectedRoute
+              isAuthed={isAuthed}
+              path='/'
+              exact
+              component={Dashboard}
+            />
+            <Route path='/404' component={NotFound} />
+            <Redirect to='/404' />
           </Switch>
         </Layout>
       </>
